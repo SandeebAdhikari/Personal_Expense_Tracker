@@ -1,11 +1,11 @@
-import NavBar from "../components/NavBar"; // Adjust the import as needed
+import NavBar from "../components/NavBar";
 import DashBoard from "./dashboard";
-import Login from "./login"; // Import your Login component
-import SignUp from "./signUp"; // Import your SignUp component
+import Login from "./login";
+import SignUp from "./SignUp";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
+function Home() {
   return (
     <Router>
       <NavBar />
@@ -18,4 +18,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
