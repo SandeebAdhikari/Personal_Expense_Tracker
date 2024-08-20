@@ -1,10 +1,8 @@
-const TopCard = () => {
+const TopCard = ({ amount, label }) => {
   return (
-    <div className=" w-full h-32 flex justify-between m-4 gap-4">
-      <div className="w-80 border flex flex-col justify-center items-center rounded-lg">
-        <h1 className="text-2xl">$21340</h1>
-        <p>Income</p>
-      </div>
+    <div className="w-80 mt-6 flex flex-col justify-center items-center rounded-lg h-32 shadow-sm shadow-slate-400">
+      <h1 className="text-2xl">{amount}</h1>
+      <p>{label}</p>
     </div>
   );
 };
