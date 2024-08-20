@@ -1,4 +1,5 @@
 import GitHubImg from "/assets/github.png";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -16,10 +17,10 @@ const Sidebar = () => {
         <hr className="border-t border-white w-64 opacity-10 mt-16" />
         <ul className="w-52 space-y-8 text-center mt-28">
           <li className="p-2 rounded-full hover:bg-blue-800">
-            <a href={`/mainDashBoard/`}>Dashboard</a>
+            <Link to="/dashboard/">Dashboard</Link>
           </li>
           <li className="p-2 rounded-full hover:bg-blue-800">
-            <a href={`/mainDashBoard/`}>Transaction</a>
+            <a href="/dashboard/transactions">Transaction</a>
           </li>
           <li className="p-2 rounded-full hover:bg-blue-800">
             <a href={`/mainDashBoard/`}>About</a>
