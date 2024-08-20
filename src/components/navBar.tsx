@@ -10,18 +10,22 @@ const NavBar = () => {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 gap-2">
-          <button
-            className="btn btn-ghost size"
-            onClick={() => navigate("/signup")}
-          >
-            Sign Up
-          </button>
-          <button
-            className="btn btn-active size"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </button>
+          <li>
+            <button
+              className="btn btn-ghost size"
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </button>
+          </li>
+          <li>
+            <button
+              className="btn btn-active size"
+              onClick={() => navigate("/")}
+            >
+              Login
+            </button>
+          </li>
         </ul>
       </div>
     </div>
