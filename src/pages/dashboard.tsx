@@ -1,28 +1,23 @@
+import TopCard from "../components/dashboard/topCard";
 import SideBar from "../components/sideBar";
 
 const DashBoard = () => {
+  const topCardsData = [
+    { amount: "$21340", label: "Income" },
+    { amount: "$12300", label: "Expenses" },
+    { amount: "$9040", label: "Savings" },
+    { amount: "$5000", label: "Investments" },
+  ];
+
   return (
     <div className="flex">
       <SideBar />
       <div className="flex flex-col m-6 w-full">
-        <h1>Dashboard</h1>
-        <div className="flex justify-between mt-4 w-full gap-4">
-          <div className="w-64  border p-4 text-center rounded-lg">
-            <h1 className="text-2xl">$21340</h1>
-            <p>Income</p>
-          </div>
-          <div className="w-64 border p-4 text-center rounded-lg">
-            <h1 className="text-2xl">$21340</h1>
-            <p>Income</p>
-          </div>
-          <div className="w-64 border p-4 text-center rounded-lg">
-            <h1 className="text-2xl">$21340</h1>
-            <p>Income</p>
-          </div>
-          <div className="w-64 border p-4 text-center rounded-lg">
-            <h1 className="text-2xl">$21340</h1>
-            <p>Income</p>
-          </div>
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <div className="flex justify-between">
+          {topCardsData.map((data, index) => (
+            <TopCard key={index} amount={data.amount} label={data.label} />
+          ))}
         </div>
       </div>
     </div>
