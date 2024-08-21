@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TransactionContext } from "../../context/TransactionContext";
 
 const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
   const [transactionType, setTransactionType] = useState("expense");
@@ -9,6 +10,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
   const [description, setDescription] = useState("");
   const [paymentMode, setPaymentMode] = useState("cash");
 
+  const { addTransaction } = useContext(TransactionContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const transactionData = {
@@ -22,14 +24,16 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
       paymentMode,
     };
     onSubmit(transactionData);
+
+    addTransaction(transactionData);
     onClose(); // Close the modal after submission
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className=" p-8 rounded-lg   w-1/2  shadow-sm shadow-slate-400">
+    <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div className="p-8 rounded-lg w-1/2 bg-base-100 shadow-sm shadow-slate-400">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">New Transaction</h2>
         </div>
@@ -89,14 +93,15 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">Select a Category</option>
-                <option>Salary</option>
+                <option>Mortgage / Rent</option>
+                <option>Food</option>
+                <option>Utilities</option>
+                <option>Bills</option>
                 <option>Shopping</option>
-                <option>Grocery</option>
                 <option>Transportation</option>
-                <option>Housing</option>
-                <option>Health</option>
-                <option>Education</option>
-                <option>Entertainment</option>
+                <option>Insurance</option>
+                <option>Health Care</option>
+                <option>Clothing</option>
                 <option>Others</option>
               </select>
             </div>

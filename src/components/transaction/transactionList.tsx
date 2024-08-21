@@ -1,10 +1,14 @@
-const TransactionList = ({ transactions }) => {
+import { useContext } from "react";
+import { TransactionContext } from "../../context/TransactionContext";
+const TransactionList = ({ onSelectTransaction }) => {
+  const { transactions } = useContext(TransactionContext);
   return (
     <div className="mt-6">
       <table className="table-auto w-full">
         <thead className=" ">
           <tr>
-            <th className="text-center border-x border-slate-400">Type</th>
+            <th></th>
+            <th className="text-center border-r border-slate-400">Type</th>
             <th className="text-center border-r border-slate-400">Date</th>
             <th className="text-center border-r border-slate-400">Time</th>
             <th className="text-center border-r border-slate-400">Category</th>
@@ -20,6 +24,13 @@ const TransactionList = ({ transactions }) => {
         <tbody>
           {transactions.map((transaction) => (
             <tr key={transaction.id}>
+              <td>
+                <input
+                  type="checkbox"
+                  className="checkbox "
+                  onChange={() => onSelectTransaction(transaction)}
+                />
+              </td>
               <td className="text-center">
                 {transaction.transactionType.toUpperCase()}
               </td>
@@ -29,9 +40,7 @@ const TransactionList = ({ transactions }) => {
                 {transaction.category.toUpperCase()}
               </td>
               <td className="text-center">{transaction.amount}</td>
-              <td className="text-center">
-                {transaction.description.toUpperCase()}
-              </td>
+              <td className="text-center">{transaction.description}</td>
               <td className="text-center">
                 {transaction.paymentMode.toUpperCase()}
               </td>

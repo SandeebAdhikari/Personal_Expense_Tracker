@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import TopCard from "../components/dashboard/topCard";
 import SideBar from "../components/sideBar";
 import PieChart from "../components/dashboard/pieChart";
@@ -7,21 +7,17 @@ import BarChart from "../components/dashboard/incomeExpense";
 import { TransactionContext } from "../context/TransactionContext"; // Import the context
 
 const DashBoard = () => {
-  const { transactions } = useContext(TransactionContext);
+  const {
+    transactions,
+    addTransaction,
+    updateTransaction,
+    deleteTransaction,
+    income,
+    expenses,
+    balance,
+  } = useContext(TransactionContext);
 
-  // Calculate total income, expenses, balance, and number of transactions
-  const income = transactions
-    .filter((transaction) => transaction.transactionType === "income")
-    .reduce((acc, transaction) => acc + transaction.amount, 0);
-
-  const expenses = transactions
-    .filter((transaction) => transaction.transactionType === "expense")
-    .reduce((acc, transaction) => acc + transaction.amount, 0);
-
-  const balance = income - expenses;
   const totalTransactions = transactions.length;
-
-  // Data for the TopCards
   const topCardsData = [
     { amount: `$${income.toFixed(2)}`, label: "Income" },
     { amount: `$${expenses.toFixed(2)}`, label: "Expenses" },
@@ -31,7 +27,7 @@ const DashBoard = () => {
 
   return (
     <div className="flex">
-      <SideBar />
+      <SideBar balance={balance} />
       <div className="flex flex-col m-6 w-full">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <div className="flex justify-between gap-4">
@@ -55,7 +51,7 @@ const DashBoard = () => {
           <div className="w-1/2 shadow-sm shadow-slate-400 mt-4 p-4">
             <h1 className="text-2xl font-bold">Income - Expense</h1>
             <div className="flex justify-between mt-4">
-              <BarChart data={transactions} />
+              <BarChart income={income} expenses={expenses} />
             </div>
           </div>
         </div>

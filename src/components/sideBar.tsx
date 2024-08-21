@@ -1,7 +1,8 @@
 import GitHubImg from "/assets/github.png";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ balance }) => {
   return (
     <div className="w-80 shadow-sm shadow-slate-400 ">
       <div className="flex flex-col items-center w-80 min-h-screen py-8">
@@ -11,7 +12,7 @@ const Sidebar = () => {
             Sandeeb Adhikari
           </h1>
           <button className="btn rounded-lg w-40 mt-2">
-            <span className="text-xl">$5,400</span>
+            <span className="text-xl">${balance}</span>
           </button>
         </div>
         <hr className="border-t border-white w-64 opacity-10 mt-16" />
