@@ -1,3 +1,4 @@
+import React from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -9,7 +10,6 @@ import {
   Legend,
 } from "chart.js";
 
-// Register the components
 ChartJS.register(
   LineElement,
   PointElement,
@@ -19,13 +19,24 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = () => {
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+const LineChart = ({ data }) => {
+  const balanceOverTime = data.reduce((acc, transaction) => {
+    const lastBalance = acc.length > 0 ? acc[acc.length - 1].balance : 0;
+    const newBalance =
+      transaction.transactionType === "income"
+        ? lastBalance + transaction.amount
+        : lastBalance - transaction.amount;
+
+    acc.push({ date: transaction.date, balance: newBalance });
+    return acc;
+  }, []);
+
+  const chartData = {
+    labels: balanceOverTime.map((entry) => entry.date),
     datasets: [
       {
         label: "Account Balance",
-        data: [15000, 16500, 16000, 17500, 18000, 18500, 19000],
+        data: balanceOverTime.map((entry) => entry.balance),
         backgroundColor: "rgba(66, 165, 245, 0.5)",
         borderColor: "rgba(66, 165, 245, 1)",
         borderWidth: 2,
@@ -54,7 +65,7 @@ const LineChart = () => {
 
   return (
     <div className="w-full h-64">
-      <Line data={data} options={options} />
+      <Line data={chartData} options={options} />
     </div>
   );
 };

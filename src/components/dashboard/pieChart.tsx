@@ -2,26 +2,36 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-// Register the components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = () => {
-  const data = {
-    labels: [
-      "Mortgage / Rent",
-      "Food",
-      "Utilities",
-      "Bills",
-      "Shopping",
-      "Transportation",
-      "Insurance",
-      "Health Care",
-      "Clothing",
-      "Others",
-    ],
+const PieChart = ({ data }) => {
+  const categories = [
+    "Mortgage / Rent",
+    "Food",
+    "Utilities",
+    "Bills",
+    "Shopping",
+    "Transportation",
+    "Insurance",
+    "Health Care",
+    "Clothing",
+    "Others",
+  ];
+  const expenseData = categories.map((category) => {
+    return data
+      .filter(
+        (transaction) =>
+          transaction.transactionType === "expense" &&
+          transaction.category === category
+      )
+      .reduce((acc, transaction) => acc + transaction.amount, 0);
+  });
+
+  const chartData = {
+    labels: categories,
     datasets: [
       {
-        data: [6000, 4866, 4160, 3960, 3375, 3230, 2890, 2480, 2255, 4844],
+        data: expenseData,
         backgroundColor: [
           "rgba(128, 203, 196, 0.8)",
           "rgba(255, 204, 128, 0.8)",
@@ -48,7 +58,7 @@ const PieChart = () => {
         ],
         borderColor: "rgba(255, 255, 255, 0.6)",
         borderWidth: 2,
-        cutout: "70%", // Adjust to make it look more like a pie or doughnut chart
+        cutout: "70%",
       },
     ],
   };
@@ -72,7 +82,7 @@ const PieChart = () => {
 
   return (
     <div className="w-full h-96">
-      <Doughnut data={data} options={options} />
+      <Doughnut data={chartData} options={options} />
     </div>
   );
 };

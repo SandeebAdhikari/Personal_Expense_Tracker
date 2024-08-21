@@ -1,3 +1,4 @@
+import React from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,20 +11,46 @@ import {
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const BarChart = () => {
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+const BarChart = ({ data }) => {
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
+
+  const incomeData = months.map((month) => {
+    return data
+      .filter(
+        (transaction) =>
+          transaction.transactionType === "income" &&
+          new Date(transaction.date).toLocaleString("default", {
+            month: "short",
+          }) === month
+      )
+      .reduce((acc, transaction) => acc + transaction.amount, 0);
+  });
+
+  const expenseData = months.map((month) => {
+    return data
+      .filter(
+        (transaction) =>
+          transaction.transactionType === "expense" &&
+          new Date(transaction.date).toLocaleString("default", {
+            month: "short",
+          }) === month
+      )
+      .reduce((acc, transaction) => acc + transaction.amount, 0);
+  });
+
+  const chartData = {
+    labels: months,
     datasets: [
       {
         label: "Income",
-        data: [5000, 6000, 7000, 8000, 7500, 8000, 8500],
+        data: incomeData,
         backgroundColor: "rgba(76, 175, 80, 0.7)",
         borderColor: "rgba(76, 175, 80, 1)",
         borderWidth: 1,
       },
       {
         label: "Expense",
-        data: [3000, 4000, 3500, 4500, 5000, 4000, 4500],
+        data: expenseData,
         backgroundColor: "rgba(239, 83, 80, 0.7)",
         borderColor: "rgba(239, 83, 80, 1)",
         borderWidth: 1,
@@ -48,7 +75,7 @@ const BarChart = () => {
 
   return (
     <div className="w-full h-64">
-      <Bar data={data} options={options} />
+      <Bar data={chartData} options={options} />
     </div>
   );
 };

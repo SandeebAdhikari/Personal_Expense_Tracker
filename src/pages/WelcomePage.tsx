@@ -1,5 +1,5 @@
-import Login from "../components/login";
-import NavBar from "../components/navBar";
+import Login from "../components/mainPage/login";
+import NavBar from "../components/mainPage/navBar";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
