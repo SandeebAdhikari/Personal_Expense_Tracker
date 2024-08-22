@@ -4,7 +4,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar ">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Expense Tracker</a>
       </div>
@@ -20,7 +20,7 @@ const NavBar = () => {
           </li>
           <li>
             <button
-              className="btn btn-active size"
+              className="btn bg-slate-200 hover:bg-slate-300 h-12 rounded-xl text-black"
               onClick={() => navigate("/")}
             >
               Login

@@ -35,20 +35,20 @@ const DashBoard = () => {
             <TopCard key={index} amount={data.amount} label={data.label} />
           ))}
         </div>
-        <div className="flex flex-col mt-6 shadow-sm shadow-slate-400 ">
+        <div className="flex flex-col mt-6 shadow-lg shadow-slate-500 rounded-3xl ">
           <h1 className="text-2xl font-bold m-4">Total Expenses</h1>
           <div className="flex justify-center mt-16 mb-8">
             <PieChart data={transactions} />
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="w-1/2 shadow-sm shadow-slate-400 mt-4 p-4">
+          <div className="w-1/2 shadow-lg shadow-slate-500 mt-4 p-4 rounded-3xl">
             <h1 className="text-2xl font-bold">Account - Balance</h1>
             <div className="flex justify-between mt-4">
               <LineChart data={transactions} />
             </div>
           </div>
-          <div className="w-1/2 shadow-sm shadow-slate-400 mt-4 p-4">
+          <div className="w-1/2 shadow-lg shadow-slate-500 mt-4 p-4 rounded-3xl">
             <h1 className="text-2xl font-bold">Income - Expense</h1>
             <div className="flex justify-between mt-4">
               <BarChart income={income} expenses={expenses} />

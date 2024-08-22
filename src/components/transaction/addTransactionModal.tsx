@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { TransactionContext } from "../../context/TransactionContext";
 
-const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
+const TransactionModal = ({ isOpen, onClose, onSubmit, transaction }) => {
   const [transactionType, setTransactionType] = useState("expense");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -10,11 +10,32 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
   const [description, setDescription] = useState("");
   const [paymentMode, setPaymentMode] = useState("cash");
 
-  const { addTransaction } = useContext(TransactionContext);
+  const { addTransaction, updateTransaction } = useContext(TransactionContext);
+
+  useEffect(() => {
+    if (transaction) {
+      setTransactionType(transaction.transactionType);
+      setDate(transaction.date);
+      setTime(transaction.time);
+      setCategory(transaction.category);
+      setAmount(transaction.amount.toString());
+      setDescription(transaction.description);
+      setPaymentMode(transaction.paymentMode);
+    } else {
+      setTransactionType("expense");
+      setDate("");
+      setTime("");
+      setCategory("");
+      setAmount("");
+      setDescription("");
+      setPaymentMode("cash");
+    }
+  }, [transaction]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const transactionData = {
-      id: Date.now(),
+      id: transaction ? transaction.id : Date.now(), // Use the existing ID if editing
       transactionType,
       date,
       time,
@@ -23,19 +44,25 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
       description,
       paymentMode,
     };
-    onSubmit(transactionData);
 
-    addTransaction(transactionData);
+    if (transaction) {
+      updateTransaction(transactionData);
+    } else {
+      addTransaction(transactionData);
+    }
+
     onClose(); // Close the modal after submission
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="p-8 rounded-lg w-1/2 bg-base-100 shadow-sm shadow-slate-400">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div className="p-8 rounded-lg w-1/2 bg-[#f0f4f8] shadow-sm shadow-slate-500">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">New Transaction</h2>
+          <h2 className="text-xl font-bold">
+            {transaction ? "Edit Transaction" : "New Transaction"}
+          </h2>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="flex gap-96 mb-8">
@@ -44,7 +71,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
                 type="radio"
                 name="transactionType"
                 value="income"
-                className="radio radio-primary"
+                className="radio border-black"
                 checked={transactionType === "income"}
                 onChange={() => setTransactionType("income")}
               />
@@ -55,7 +82,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
                 type="radio"
                 name="transactionType"
                 value="expense"
-                className="radio radio-primary"
+                className="radio border-black "
                 checked={transactionType === "expense"}
                 onChange={() => setTransactionType("expense")}
               />
@@ -68,7 +95,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
               <label className="block mb-1">Choose a Date</label>
               <input
                 type="date"
-                className="input input-bordered w-full"
+                className="bg-slate-200 hover:bg-slate-300 h-12 rounded-xl p-2 w-full"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
@@ -77,7 +104,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
               <label className="block mb-1">Choose a Time</label>
               <input
                 type="time"
-                className="input input-bordered w-full"
+                className="bg-slate-200 hover:bg-slate-300 h-12 rounded-xl p-2 w-full"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
@@ -88,11 +115,12 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
             <div>
               <label className="block mb-1">Select a Category</label>
               <select
-                className="input input-bordered w-full"
+                className="bg-slate-200 hover:bg-slate-300 h-12 rounded-xl p-2 w-full"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">Select a Category</option>
+                <option>Salary</option>
                 <option>Mortgage / Rent</option>
                 <option>Food</option>
                 <option>Utilities</option>
@@ -109,7 +137,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
               <label className="block mb-1">Enter an Amount</label>
               <input
                 type="number"
-                className="input input-bordered w-full"
+                className="bg-slate-200 hover:bg-slate-300 h-12 rounded-xl p-2 w-full"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               />
@@ -119,7 +147,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
           <div className="mb-4">
             <label className="block mb-1">Description</label>
             <textarea
-              className="textarea textarea-bordered w-full"
+              className="textarea bg-slate-200 hover:bg-slate-300 w-full"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -133,7 +161,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
                   type="radio"
                   name="paymentMode"
                   value="cash"
-                  className="radio radio-primary"
+                  className="radio border-black"
                   checked={paymentMode === "cash"}
                   onChange={() => setPaymentMode("cash")}
                 />
@@ -144,7 +172,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
                   type="radio"
                   name="paymentMode"
                   value="debit-card"
-                  className="radio radio-primary"
+                  className="radio border-black"
                   checked={paymentMode === "debit-card"}
                   onChange={() => setPaymentMode("debit-card")}
                 />
@@ -155,7 +183,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
                   type="radio"
                   name="paymentMode"
                   value="credit-card"
-                  className="radio radio-primary"
+                  className="radio border-black"
                   checked={paymentMode === "credit-card"}
                   onChange={() => setPaymentMode("credit-card")}
                 />
@@ -167,13 +195,13 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
           <div className="flex justify-end gap-4">
             <button
               type="submit"
-              className="btn border shadow-sm shadow-slate-400 btn-ghost w-24"
+              className="btn border shadow-sm shadow-slate-500 btn-ghost w-24"
             >
-              Add
+              {transaction ? "Update" : "Add"}
             </button>
             <button
               type="button"
-              className="w-24 btn shadow-sm shadow-slate-400"
+              className="w-24 btn shadow-sm shadow-slate-500"
               onClick={onClose}
             >
               Cancel

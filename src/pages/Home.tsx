@@ -1,6 +1,7 @@
 import DashBoard from "./Dashboard";
 import MainPage from "./WelcomePage";
 import SignUp from "./SignUp";
+import About from "./About";
 import Transactions from "./Transactions";
 import { TransactionProvider } from "../context/TransactionContext";
 
@@ -15,6 +16,7 @@ function Home() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/dashboard/transactions" element={<Transactions />} />
+          <Route path="/dashboard/about" element={<About />} />
         </Routes>
       </Router>
     </TransactionProvider>
