@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #f0f4f8; /* or any color you prefer */
+  color: #333; /* This changes the default text color if needed */
+  margin: 0;
+  padding: 0;
+}
