@@ -21,15 +21,15 @@ ChartJS.register(
 const BarChart = ({ income, expenses }) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
 
-  console.log("Income Data:", income);
-  console.log("Expense Data:", expenses);
+  const incomeData = Array(months.length).fill(income);
+  const expenseData = Array(months.length).fill(expenses);
 
   const chartData = {
     labels: months,
     datasets: [
       {
         label: "Income",
-        data: income, // Use the `income` prop directly
+        data: incomeData, // Use the `income` prop directly
         backgroundColor: "rgba(76, 175, 80, 0.7)",
         borderColor: "rgba(76, 175, 80, 1)",
         borderWidth: 1,
@@ -37,7 +37,7 @@ const BarChart = ({ income, expenses }) => {
       },
       {
         label: "Expense",
-        data: expenses, // Use the `expenses` prop directly
+        data: expenseData, // Use the `expenses` prop directly
         backgroundColor: "rgba(239, 83, 80, 0.7)",
         borderColor: "rgba(239, 83, 80, 1)",
         borderWidth: 1,

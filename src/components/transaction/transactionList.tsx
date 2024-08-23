@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { TransactionContext } from "../../context/TransactionContext";
+
 const TransactionList = ({ onSelectTransaction }) => {
   const { transactions } = useContext(TransactionContext);
+
   return (
     <div className="mt-6 border border-black rounded-xl">
       <table className="table-auto w-full">
-        <thead className=" border-r border-b border-slate-400 p-2">
+        <thead className="border-r border-b border-slate-400 p-2">
           <tr>
             <th></th>
             <th className="text-center border border-slate-400 p-2 rounded-xl">
@@ -52,7 +54,7 @@ const TransactionList = ({ onSelectTransaction }) => {
                 {transaction.category.toUpperCase()}
               </td>
               <td className="text-center p-2 border border-slate-400">
-                {transaction.amount}
+                ${transaction.amount.toFixed(2)}
               </td>
               <td className="text-center p-2 border border-slate-400">
                 {transaction.description}
