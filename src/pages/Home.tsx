@@ -1,6 +1,6 @@
 import DashBoard from "./Dashboard";
 import MainPage from "./WelcomePage";
-import SignUp from "./SignUp";
+import SignUp from "../components/mainPage/SignUp";
 import About from "./About";
 import Transactions from "./Transactions";
 import { TransactionProvider } from "../context/TransactionContext";
