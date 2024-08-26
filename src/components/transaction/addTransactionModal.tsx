@@ -35,7 +35,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transaction }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const transactionData = {
-      id: transaction ? transaction.id : Date.now(), // Use the existing ID if editing
+      id: transaction ? transaction.id : Date.now(),
       transactionType,
       date,
       time,
