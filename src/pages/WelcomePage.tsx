@@ -6,7 +6,7 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
-    navigate("/dashboard"); // Replace with the desired route
+    navigate("/dashboard");
   };
   return (
     <div>
