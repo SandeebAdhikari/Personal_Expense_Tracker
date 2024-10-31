@@ -1,4 +1,4 @@
-import DashBoard from "./about.tsx";
+import DashBoard from "./dashboard.tsx";
 import MainPage from "./WelcomePage.tsx";
 import SignUp from "../components/mainPage/SignUp.tsx";
 import About from "./about.tsx";
