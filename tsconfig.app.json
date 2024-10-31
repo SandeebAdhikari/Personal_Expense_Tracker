@@ -3,10 +3,12 @@
     "target": "ES2020",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "moduleResolution": "node",
     "skipLibCheck": true,
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
     "jsx": "react-jsx",
     "strict": false,
     "noUnusedLocals": false,
@@ -14,7 +16,12 @@
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "strictFunctionTypes": false,
-    "alwaysStrict": false
+    "alwaysStrict": false,
+    "baseUrl": "./", // Defines the base path
+    "paths": {
+      "@pages/*": ["src/pages/*"], // Path alias to resolve imports in `src/pages`
+      "@components/*": ["src/components/*"] // Add other aliases as needed
+    }
   },
   "include": ["src"]
 }
