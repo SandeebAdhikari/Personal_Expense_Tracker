@@ -65,7 +65,7 @@ const TransactionModal = ({
     e.preventDefault();
     const transactionData = {
       id: transaction ? transaction.id.toString() : Date.now().toString(),
-      transactionType,
+      transactionType: transactionType as "income" | "expense",
       date,
       time,
       category,

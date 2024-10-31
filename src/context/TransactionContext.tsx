@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 export interface Transaction {
   id: string;
 
-  transactionType: "income" | "expense" | string;
+  transactionType: "income" | "expense";
 
   date: string;
 
