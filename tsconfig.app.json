@@ -4,7 +4,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -16,12 +16,7 @@
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "strictFunctionTypes": false,
-    "alwaysStrict": false,
-    "baseUrl": "./", // Defines the base path
-    "paths": {
-      "@pages/*": ["src/pages/*"], // Path alias to resolve imports in `src/pages`
-      "@components/*": ["src/components/*"] // Add other aliases as needed
-    }
+    "alwaysStrict": false
   },
-  "include": ["src"]
+  "include": ["src", "src/global.d.ts"]
 }
