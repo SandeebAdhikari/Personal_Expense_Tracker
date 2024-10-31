@@ -1,7 +1,18 @@
 import { useContext } from "react";
-import { TransactionContext } from "../../context/TransactionContext";
+import {
+  TransactionContext,
+  Transaction,
+} from "../../context/TransactionContext";
 
-const TransactionList = ({ onSelectTransaction }) => {
+interface TransactionListProps {
+  transactions: Transaction[];
+
+  onSelectTransaction: (transaction: Transaction) => void;
+}
+
+const TransactionList: React.FC<TransactionListProps> = ({
+  onSelectTransaction,
+}) => {
   const { transactions } = useContext(TransactionContext);
 
   return (
@@ -37,7 +48,7 @@ const TransactionList = ({ onSelectTransaction }) => {
               <td className="p-2">
                 <input
                   type="checkbox"
-                  className="checkbox bg-slate-200 hover:bg-slate-300 "
+                  className="checkbox bg-slate-200 hover:bg-slate-300"
                   onChange={() => onSelectTransaction(transaction)}
                 />
               </td>

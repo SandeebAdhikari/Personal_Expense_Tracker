@@ -4,7 +4,17 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = ({ data }) => {
+interface Transaction {
+  transactionType: string;
+  category: string;
+  amount: number;
+}
+
+interface PieChartProps {
+  data: Transaction[];
+}
+
+const PieChart: React.FC<PieChartProps> = ({ data }) => {
   const categories = [
     "Mortgage / Rent",
     "Food",
@@ -68,11 +78,11 @@ const PieChart = ({ data }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "right",
+        position: "right" as const,
       },
       tooltip: {
         callbacks: {
-          label: function (tooltipItem) {
+          label: function (tooltipItem: any) {
             return tooltipItem.label + ": $" + tooltipItem.raw;
           },
         },

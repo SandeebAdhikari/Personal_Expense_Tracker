@@ -2,11 +2,15 @@ import { useState } from "react";
 import GitHubImg from "/assets/github.png";
 import { Link, useLocation } from "react-router-dom";
 
-const Sidebar = ({ balance }) => {
+interface SidebarProps {
+  balance: number;
+}
+
+const Sidebar = ({ balance }: SidebarProps) => {
   const location = useLocation(); // This gives the current location
   const [activeItem, setActiveItem] = useState(location.pathname);
 
-  const handleClick = (path) => {
+  const handleClick = (path: string) => {
     setActiveItem(path);
   };
 

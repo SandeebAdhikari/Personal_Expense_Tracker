@@ -19,10 +19,10 @@ const DashBoard = () => {
 
   const totalTransactions = transactions.length;
   const topCardsData = [
-    { amount: `$${income.toFixed(2)}`, label: "Income" },
-    { amount: `$${expenses.toFixed(2)}`, label: "Expenses" },
-    { amount: `$${balance.toFixed(2)}`, label: "Balance" },
-    { amount: `${totalTransactions}`, label: "Transactions" },
+    { amount: income, label: "Income" },
+    { amount: expenses, label: "Expenses" },
+    { amount: balance, label: "Balance" },
+    { amount: totalTransactions, label: "Transactions" },
   ];
 
   return (

@@ -18,17 +18,30 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = ({ data }) => {
-  const balanceOverTime = data.reduce((acc, transaction) => {
-    const lastBalance = acc.length > 0 ? acc[acc.length - 1].balance : 0;
-    const newBalance =
-      transaction.transactionType === "income"
-        ? lastBalance + transaction.amount
-        : lastBalance - transaction.amount;
+interface Transaction {
+  date: string;
+  amount: number;
+  transactionType: "income" | "expense";
+}
 
-    acc.push({ date: transaction.date, balance: newBalance });
-    return acc;
-  }, []);
+interface LineChartProps {
+  data: Transaction[];
+}
+
+const LineChart = ({ data }: LineChartProps) => {
+  const balanceOverTime = data.reduce(
+    (acc: { date: string; balance: number }[], transaction) => {
+      const lastBalance = acc.length > 0 ? acc[acc.length - 1].balance : 0;
+      const newBalance =
+        transaction.transactionType === "income"
+          ? lastBalance + transaction.amount
+          : lastBalance - transaction.amount;
+
+      acc.push({ date: transaction.date, balance: newBalance });
+      return acc;
+    },
+    []
+  );
 
   const chartData = {
     labels: balanceOverTime.map((entry) => entry.date),
@@ -52,7 +65,7 @@ const LineChart = ({ data }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top",
+        position: "top" as const,
       },
     },
     scales: {

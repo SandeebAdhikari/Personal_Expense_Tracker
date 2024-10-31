@@ -1,13 +1,54 @@
 import React, { createContext, useState, useEffect } from "react";
+import { ReactNode } from "react";
 
-export const TransactionContext = createContext();
+export interface Transaction {
+  id: string;
 
-export const TransactionProvider = ({ children }) => {
-  const [transactions, setTransactions] = useState([]);
+  transactionType: "income" | "expense" | string;
+
+  date: string;
+
+  time: string;
+
+  category: string;
+
+  amount: number;
+
+  description: string;
+
+  paymentMode: string;
+}
+
+interface TransactionContextType {
+  transactions: Transaction[];
+  addTransaction: (transaction: Transaction) => void;
+  updateTransaction: (transaction: Transaction) => void;
+  deleteTransaction: (id: string) => void;
+  income: number;
+  expenses: number;
+  balance: number;
+}
+
+export const TransactionContext = createContext<TransactionContextType>({
+  transactions: [],
+  addTransaction: () => {},
+  updateTransaction: () => {},
+  deleteTransaction: () => {},
+  income: 0,
+  expenses: 0,
+  balance: 0,
+});
+
+interface TransactionProviderProps {
+  children: ReactNode;
+}
+
+export const TransactionProvider = ({ children }: TransactionProviderProps) => {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     const storedTransactions =
-      JSON.parse(localStorage.getItem("transactions")) || [];
+      JSON.parse(localStorage.getItem("transactions") || "[]") || [];
     setTransactions(storedTransactions);
   }, []);
 
@@ -27,12 +68,12 @@ export const TransactionProvider = ({ children }) => {
 
   const balance = income - expenses;
 
-  const addTransaction = (transaction) => {
+  const addTransaction = (transaction: Transaction) => {
     const updatedTransactions = [...transactions, transaction];
     setTransactions(updatedTransactions);
   };
 
-  const updateTransaction = (updatedTransaction) => {
+  const updateTransaction = (updatedTransaction: Transaction) => {
     const updatedTransactions = transactions.map((transaction) =>
       transaction.id === updatedTransaction.id
         ? updatedTransaction
@@ -41,7 +82,7 @@ export const TransactionProvider = ({ children }) => {
     setTransactions(updatedTransactions);
   };
 
-  const deleteTransaction = (id) => {
+  const deleteTransaction = (id: string) => {
     const updatedTransactions = transactions.filter(
       (transaction) => transaction.id !== id
     );

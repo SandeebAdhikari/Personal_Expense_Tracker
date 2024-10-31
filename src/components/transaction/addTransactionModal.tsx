@@ -1,7 +1,28 @@
 import { useState, useEffect, useContext } from "react";
 import { TransactionContext } from "../../context/TransactionContext";
 
-const TransactionModal = ({ isOpen, onClose, onSubmit, transaction }) => {
+interface TransactionModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (transactionData: any) => void;
+  transaction?: {
+    id: string;
+    transactionType: "income" | "expense" | string;
+    date: string;
+    time: string;
+    category: string;
+    amount: number;
+    description: string;
+    paymentMode: string;
+  };
+}
+
+const TransactionModal = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  transaction,
+}: TransactionModalProps) => {
   const [transactionType, setTransactionType] = useState("expense");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -10,7 +31,15 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transaction }) => {
   const [description, setDescription] = useState("");
   const [paymentMode, setPaymentMode] = useState("cash");
 
-  const { addTransaction, updateTransaction } = useContext(TransactionContext);
+  const transactionContext = useContext(TransactionContext);
+
+  if (!transactionContext) {
+    throw new Error(
+      "TransactionContext must be used within a TransactionProvider"
+    );
+  }
+
+  const { addTransaction, updateTransaction } = transactionContext;
 
   useEffect(() => {
     if (transaction) {
@@ -32,10 +61,10 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transaction }) => {
     }
   }, [transaction]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const transactionData = {
-      id: transaction ? transaction.id : Date.now(),
+      id: transaction ? transaction.id.toString() : Date.now().toString(),
       transactionType,
       date,
       time,

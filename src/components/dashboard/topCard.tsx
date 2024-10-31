@@ -1,4 +1,9 @@
-const TopCard = ({ amount, label }) => {
+interface TopCardProps {
+  amount: number;
+  label: string;
+}
+
+const TopCard: React.FC<TopCardProps> = ({ amount, label }) => {
   return (
     <div className="w-80 mt-6 flex flex-col justify-center items-center rounded-3xl h-32 shadow-lg shadow-slate-500">
       <h1 className="text-2xl">{amount}</h1>

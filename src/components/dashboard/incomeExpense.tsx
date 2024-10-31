@@ -18,7 +18,12 @@ ChartJS.register(
   Filler
 );
 
-const BarChart = ({ income, expenses }) => {
+interface BarChartProps {
+  income: number;
+  expenses: number;
+}
+
+const BarChart: React.FC<BarChartProps> = ({ income, expenses }) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
 
   const incomeData = Array(months.length).fill(income);
@@ -51,7 +56,7 @@ const BarChart = ({ income, expenses }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top",
+        position: "top" as const,
       },
     },
     scales: {

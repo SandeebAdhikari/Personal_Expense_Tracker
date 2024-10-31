@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import Sidebar from "../components/sideBar";
 import TransactionModal from "../components/transaction/addTransactionModal";
 import TransactionList from "../components/transaction/transactionList";
-import { TransactionContext } from "../context/TransactionContext";
+import { Transaction, TransactionContext } from "../context/TransactionContext";
 
 const Transactions = () => {
   const {
@@ -13,17 +13,19 @@ const Transactions = () => {
     balance,
   } = useContext(TransactionContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [selectedTransaction, setSelectedTransaction] = useState<
+    Transaction | undefined
+  >(undefined);
   const [isEditing, setIsEditing] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
     setIsEditing(false);
-    setSelectedTransaction(null);
+    setSelectedTransaction(undefined);
   };
 
-  const handleAddTransaction = (transaction) => {
+  const handleAddTransaction = (transaction: Transaction) => {
     if (isEditing) {
       updateTransaction(transaction);
     } else {
@@ -42,11 +44,11 @@ const Transactions = () => {
   const handleDeleteClick = () => {
     if (selectedTransaction) {
       deleteTransaction(selectedTransaction.id);
-      setSelectedTransaction(null); // Clear selection after deleting
+      setSelectedTransaction(undefined); // Clear selection after deleting
     }
   };
 
-  const handleSelectTransaction = (transaction) => {
+  const handleSelectTransaction = (transaction: Transaction) => {
     setSelectedTransaction(transaction); // Set the selected transaction
   };
 

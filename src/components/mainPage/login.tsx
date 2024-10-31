@@ -1,10 +1,14 @@
 import { useState } from "react";
 
-const Login = ({ onLoginSuccess }) => {
+interface LoginProps {
+  onLoginSuccess: () => void;
+}
+
+const Login = ({ onLoginSuccess }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Mock login validation
@@ -33,8 +37,8 @@ const Login = ({ onLoginSuccess }) => {
           />
           <div className=" flex justify-center mt-6">
             <button
+              type="submit"
               className="bg-slate-200 hover:bg-slate-300 w-32 h-12 rounded-xl"
-              onClick={handleLogin}
               disabled={!email || !password}
             >
               Login
