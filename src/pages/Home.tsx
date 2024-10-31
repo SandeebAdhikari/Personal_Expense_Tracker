@@ -1,9 +1,9 @@
-import DashBoard from "./Dashboard.tsx";
-import MainPage from "./WelcomePage.tsx";
-import SignUp from "../components/mainPage/SignUp.tsx";
-import About from "./About.tsx";
-import Transactions from "./Transactions.tsx";
-import { TransactionProvider } from "../context/TransactionContext.tsx";
+import DashBoard from "./Dashboard";
+import MainPage from "./WelcomePage";
+import SignUp from "../components/mainPage/SignUp";
+import About from "./About";
+import Transactions from "./Transactions";
+import { TransactionProvider } from "../context/TransactionContext";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
